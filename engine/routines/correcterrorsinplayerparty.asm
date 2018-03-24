@@ -87,7 +87,7 @@ Unreferenced_CorrectErrorsInPlayerParty:
 	add hl, bc
 	ld d, h
 	ld e, l
-	ld hl, MON_STAT_EXP - 1
+	ld hl, MON_EFFORT_EXP - 1
 	add hl, bc
 	ld b, TRUE
 	predef CalcMonStats

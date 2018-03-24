@@ -10,7 +10,7 @@ box_struct: MACRO
 \1Moves::          ds NUM_MOVES
 \1ID::             dw
 \1Exp::            ds 3
-\1StatExp::
+\1EffortExp::
 \1HPExp::          dw
 \1AtkExp::         dw
 \1DefExp::         dw

@@ -1200,9 +1200,9 @@ VitaminEffect: ; ee3d
 
 	call RareCandy_StatBooster_GetParameters
 
-	call GetStatExpRelativePointer
+	call GetEffortExpRelativePointer
 
-	ld a, MON_STAT_EXP
+	ld a, MON_EFFORT_EXP
 	call GetPartyParamLocation
 
 	add hl, bc
@@ -1214,7 +1214,7 @@ VitaminEffect: ; ee3d
 	ld [hl], a
 	call UpdateStatsAfterItem
 
-	call GetStatExpRelativePointer
+	call GetEffortExpRelativePointer
 
 	ld hl, StatStrings
 	add hl, bc
@@ -1248,7 +1248,7 @@ UpdateStatsAfterItem: ; ee8c
 	call GetPartyParamLocation
 	ld d, h
 	ld e, l
-	ld a, MON_STAT_EXP - 1
+	ld a, MON_EFFORT_EXP - 1
 	call GetPartyParamLocation
 	ld b, TRUE
 	predef_jump CalcMonStats
@@ -1283,7 +1283,7 @@ StatStrings: ; eeab
 ; eed9
 
 
-GetStatExpRelativePointer: ; eed9
+GetEffortExpRelativePointer: ; eed9
 	ld a, [wCurItem]
 	ld hl, Table_eeeb
 .next
@@ -1301,11 +1301,11 @@ GetStatExpRelativePointer: ; eed9
 ; eeeb
 
 Table_eeeb: ; eeeb
-	db HP_UP,    MON_HP_EXP - MON_STAT_EXP
-	db PROTEIN, MON_ATK_EXP - MON_STAT_EXP
-	db IRON,    MON_DEF_EXP - MON_STAT_EXP
-	db CARBOS,  MON_SPD_EXP - MON_STAT_EXP
-	db CALCIUM, MON_SPC_EXP - MON_STAT_EXP
+	db HP_UP,    MON_HP_EXP - MON_EFFORT_EXP
+	db PROTEIN, MON_ATK_EXP - MON_EFFORT_EXP
+	db IRON,    MON_DEF_EXP - MON_EFFORT_EXP
+	db CARBOS,  MON_SPD_EXP - MON_EFFORT_EXP
+	db CALCIUM, MON_SPC_EXP - MON_EFFORT_EXP
 ; eef5
 
 

@@ -2145,7 +2145,7 @@ wBaseItems:: ; d241
 wBaseItem1:: db ; d241
 wBaseItem2:: db ; d242
 wBaseGender:: db ; d243
-wBaseUnknown1:: db ; d244
+wBaseEffort:: db ; d244
 wBaseEggSteps:: db ; d245
 wBaseUnknown2:: db ; d246
 wBasePicSize:: db ; d247

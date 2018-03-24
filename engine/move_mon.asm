@@ -165,7 +165,7 @@ endr
 
 	; Initialize stat experience.
 	xor a
-	ld b, MON_DVS - MON_STAT_EXP
+	ld b, MON_DVS - MON_EFFORT_EXP
 .loop
 	ld [de], a
 	inc de
@@ -254,7 +254,7 @@ endr
 	inc de
 
 	; Initialize HP.
-	ld bc, MON_STAT_EXP - 1
+	ld bc, MON_EFFORT_EXP - 1
 	add hl, bc
 	ld a, 1
 	ld c, a
@@ -337,7 +337,7 @@ endr
 
 .generatestats
 	pop hl
-	ld bc, MON_STAT_EXP - 1
+	ld bc, MON_EFFORT_EXP - 1
 	add hl, bc
 	ld b, FALSE
 	call CalcMonStats
@@ -655,7 +655,7 @@ SendGetMonIntoFromBox: ; db3f
 	add hl, bc
 	ld d, h
 	ld e, l
-	ld hl, MON_STAT_EXP - 1
+	ld hl, MON_EFFORT_EXP - 1
 	add hl, bc
 
 	push bc
@@ -1400,7 +1400,7 @@ ComputeNPCTrademonStats: ; e134
 	ld d, h
 	ld e, l
 	push de
-	ld a, MON_STAT_EXP - 1
+	ld a, MON_EFFORT_EXP - 1
 	call GetPartyParamLocation
 	ld b, TRUE
 	call CalcMonStats
@@ -1484,7 +1484,7 @@ CalcMonStatC: ; e17b
 	pop hl
 	push bc
 	ld bc, MON_DVS - MON_HP_EXP + 1
-	add hl, bc
+	add hl, bc ; hl now points to the Pokemon's DVs
 	pop bc
 	ld a, c
 	cp STAT_ATK
