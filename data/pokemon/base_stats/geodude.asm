@@ -8,7 +8,7 @@
 	db 86 ; base exp
 	db NO_ITEM, EVERSTONE ; items
 	db GENDER_F50 ; gender ratio
-	db 100 ; unknown 1
+	db %00000100
 	db 15 ; step cycles to hatch
 	db 5 ; unknown 2
 	INCBIN "gfx/pokemon/geodude/front.dimensions"

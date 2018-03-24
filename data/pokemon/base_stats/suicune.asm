@@ -8,7 +8,7 @@
 	db 215 ; base exp
 	db NO_ITEM, NO_ITEM ; items
 	db GENDERLESS ; gender ratio
-	db 100 ; unknown 1
+	db %11000100
 	db 80 ; step cycles to hatch
 	db 5 ; unknown 2
 	INCBIN "gfx/pokemon/suicune/front.dimensions"

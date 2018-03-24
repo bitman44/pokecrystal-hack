@@ -8,7 +8,7 @@
 	db 180 ; base exp
 	db NO_ITEM, NO_ITEM ; items
 	db GENDERLESS ; gender ratio
-	db 100 ; unknown 1
+	db %00110000
 	db 20 ; step cycles to hatch
 	db 5 ; unknown 2
 	INCBIN "gfx/pokemon/porygon2/front.dimensions"

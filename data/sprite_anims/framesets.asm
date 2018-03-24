@@ -88,8 +88,8 @@ SpriteAnimFrameData: ; 8d6e6
 	dorestart
 
 .Frameset_PartyMonFast:
-	frame SPRITE_ANIM_OAMSET_RED_WALK_1,  4
-	frame SPRITE_ANIM_OAMSET_RED_WALK_2,  4
+	frame SPRITE_ANIM_OAMSET_RED_WALK_1,  8
+	frame SPRITE_ANIM_OAMSET_RED_WALK_2,  8
 	dorestart
 
 .Frameset_PartyMonWithMailFast:
@@ -103,17 +103,17 @@ SpriteAnimFrameData: ; 8d6e6
 	dorestart
 
 .Frameset_RedWalk:
-	frame SPRITE_ANIM_OAMSET_RED_WALK_1,  8
-	frame SPRITE_ANIM_OAMSET_RED_WALK_2,  8
-	frame SPRITE_ANIM_OAMSET_RED_WALK_1,  8
-	frame SPRITE_ANIM_OAMSET_RED_WALK_2,  8, OAM_X_FLIP
+	frame SPRITE_ANIM_OAMSET_RED_WALK_1,  4
+	frame SPRITE_ANIM_OAMSET_RED_WALK_2,  4
+	frame SPRITE_ANIM_OAMSET_RED_WALK_1,  4
+	frame SPRITE_ANIM_OAMSET_RED_WALK_2,  4, OAM_X_FLIP
 	dorestart
 
 .Frameset_BlueWalk:
-	frame SPRITE_ANIM_OAMSET_BLUE_WALK_1,  8
-	frame SPRITE_ANIM_OAMSET_BLUE_WALK_2,  8
-	frame SPRITE_ANIM_OAMSET_BLUE_WALK_1,  8
-	frame SPRITE_ANIM_OAMSET_BLUE_WALK_2,  8, OAM_X_FLIP
+	frame SPRITE_ANIM_OAMSET_BLUE_WALK_1,  4
+	frame SPRITE_ANIM_OAMSET_BLUE_WALK_2,  4
+	frame SPRITE_ANIM_OAMSET_BLUE_WALK_1,  4
+	frame SPRITE_ANIM_OAMSET_BLUE_WALK_2,  4, OAM_X_FLIP
 	dorestart
 
 .Frameset_MagnetTrainBlue:

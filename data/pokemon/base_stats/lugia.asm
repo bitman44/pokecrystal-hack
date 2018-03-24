@@ -8,7 +8,7 @@
 	db 220 ; base exp
 	db NO_ITEM, NO_ITEM ; items
 	db GENDERLESS ; gender ratio
-	db 100 ; unknown 1
+	db %11100000
 	db 120 ; step cycles to hatch
 	db 5 ; unknown 2
 	INCBIN "gfx/pokemon/lugia/front.dimensions"

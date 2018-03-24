@@ -8,7 +8,7 @@
 	db 217 ; base exp
 	db NO_ITEM, NO_ITEM ; items
 	db GENDERLESS ; gender ratio
-	db 100 ; unknown 1
+	db %00001101
 	db 80 ; step cycles to hatch
 	db 5 ; unknown 2
 	INCBIN "gfx/pokemon/entei/front.dimensions"

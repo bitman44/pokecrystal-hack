@@ -8,7 +8,7 @@
 	db 220 ; base exp
 	db NO_ITEM, BERSERK_GENE ; items
 	db GENDERLESS ; gender ratio
-	db 100 ; unknown 1
+	db %01110000
 	db 120 ; step cycles to hatch
 	db 5 ; unknown 2
 	INCBIN "gfx/pokemon/mewtwo/front.dimensions"
