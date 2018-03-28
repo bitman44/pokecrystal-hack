@@ -1461,26 +1461,27 @@ CalcMonStatC: ; e17b
 	pop hl
 	push hl
 	ld a, c
-	cp STAT_SDEF
-	jr nz, .not_spdef
-	dec hl
-	dec hl
+;	cp STAT_SDEF
+;	jr nz, .not_spdef
+;	dec hl
+;	dec hl
 
-.not_spdef
-	sla c
+;.not_spdef
+;	sla c
 	ld a, d
 	and a
-	jr z, .no_stat_exp
+	jr z, .no_EVs
 	add hl, bc
-	push de
-	ld a, [hld]
-	ld e, a
-	ld d, [hl]
-	farcall GetSquareRoot
-	pop de
+	ld b, [hl]
+;	push de
+;	ld a, [hld]
+;	ld e, a
+;	ld d, [hl]
+;	farcall GetSquareRoot
+;	pop de
 
-.no_stat_exp
-	srl c
+.no_EVs
+;	srl c
 	pop hl
 	push bc
 	ld bc, MON_DVS - MON_HP_EXP + 1

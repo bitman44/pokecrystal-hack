@@ -11,12 +11,20 @@ box_struct: MACRO
 \1ID::             dw
 \1Exp::            ds 3
 \1EffortExp::
-\1HPExp::          dw
-\1AtkExp::         dw
-\1DefExp::         dw
-\1SpdExp::         dw
-\1SpcExp::         dw
-\1DVs::            dw
+\1HPExp::          db
+\1AtkExp::         db
+\1DefExp::         db
+\1SpdExp::         db
+\1SAtkExp::        db
+\1SDefExp::        db
+\1IVs::            ds 4
+; \1PV::             dw
+; \1HPExp::          dw	; to remove
+; \1AtkExp::         dw	; to remove
+; \1DefExp::         dw	; to remove
+; \1SpdExp::         dw	; to remove
+; \1SpcExp::         dw	; to remove
+\1DVs::            dw	; to remove
 \1PP::             ds NUM_MOVES
 \1Happiness::      db
 \1PokerusStatus::  db

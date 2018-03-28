@@ -39,7 +39,7 @@ ItemEffects: ; e73c
 	dw EvoStoneEffect      ; FIRE_STONE
 	dw EvoStoneEffect      ; THUNDERSTONE
 	dw EvoStoneEffect      ; WATER_STONE
-	dw NoEffect            ; ITEM_19
+	dw VitaminEffect       ; ZINC
 	dw VitaminEffect       ; HP_UP
 	dw VitaminEffect       ; PROTEIN
 	dw VitaminEffect       ; IRON
@@ -1212,6 +1212,36 @@ VitaminEffect: ; ee3d
 
 	add 10
 	ld [hl], a
+	push hl
+	farcall GetSumOfEVs
+	ld a, l
+	sub 254
+	ld l, a
+	ld a, h
+	sbc 1
+	ld h, a
+	jr z, .next1
+	pop hl
+	jr .notMax
+.next1
+	ld a, l
+	cp 10
+	jr c, .next2
+	pop hl
+	ld a, [hl]
+	sub 10
+	ld [hl], a
+	jr NoEffectMessage
+.next2
+	ld a, l
+	pop hl
+	push de
+	ld e, a
+	ld a, [hl]
+	sub e
+	ld [hl], a
+	pop de
+.notMax
 	call UpdateStatsAfterItem
 
 	call GetEffortExpRelativePointer
@@ -1273,19 +1303,21 @@ StatStrings: ; eeab
 	dw .attack
 	dw .defense
 	dw .speed
-	dw .special
+	dw .satk
+	dw .sdef
 
 .health  db "HEALTH@"
 .attack  db "ATTACK@"
 .defense db "DEFENSE@"
 .speed   db "SPEED@"
-.special db "SPECIAL@"
+.satk    db "SP. ATK@"
+.sdef    db "SP. DEF@"
 ; eed9
 
 
 GetEffortExpRelativePointer: ; eed9
 	ld a, [wCurItem]
-	ld hl, Table_eeeb
+	ld hl, VitaminTable
 .next
 	cp [hl]
 	inc hl
@@ -1300,12 +1332,14 @@ GetEffortExpRelativePointer: ; eed9
 	ret
 ; eeeb
 
-Table_eeeb: ; eeeb
+VitaminTable: ; eeeb
 	db HP_UP,    MON_HP_EXP - MON_EFFORT_EXP
 	db PROTEIN, MON_ATK_EXP - MON_EFFORT_EXP
 	db IRON,    MON_DEF_EXP - MON_EFFORT_EXP
 	db CARBOS,  MON_SPD_EXP - MON_EFFORT_EXP
-	db CALCIUM, MON_SPC_EXP - MON_EFFORT_EXP
+	; db CALCIUM, MON_SPC_EXP - MON_EFFORT_EXP
+	db CALCIUM, MON_SATK_EXP - MON_EFFORT_EXP
+	db ZINC,    MON_SDEF_EXP - MON_EFFORT_EXP
 ; eef5
 
 

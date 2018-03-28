@@ -7200,59 +7200,106 @@ GiveExperiencePoints: ; 3ee3b
 	jp z, .skip_stats
 
 ; give stat exp
-	ld hl, MON_EFFORT_EXP + 1
+	ld hl, MON_EFFORT_EXP
 	add hl, bc
 	ld d, h
 	ld e, l
-	ld hl, wEnemyMonBaseStats - 1
+	;jr .oldCode
+.newCode
+	ld hl, wCurBaseData
 	push bc
-	ld c, $5
-.loop1
-	inc hl
-	ld a, [de]
-	add [hl]
-	ld [de], a
-	jr nc, .okay1
-	dec de
-	ld a, [de]
-	inc a
-	jr z, .next
-	ld [de], a
-	inc de
-
-.okay1
-	push hl
-	push bc
+	ld bc, BASE_EFFORT
+	add hl, bc
+	ld b, [hl]
+	ld c, $6
+	push de
+	
+.loop1_
+	call AddEVToStat
 	ld a, MON_PKRUS
 	call GetPartyParamLocation
 	ld a, [hl]
 	and a
-	pop bc
+	call nz, AddEVToStat
 	pop hl
-	jr z, .skip
+	push hl
+	call GetSumOfEVs
+	ld a, l
+	sub 254
+	ld l, a
+	ld a, h
+	sbc 1
+	ld h, a
+	and a
+	jr nz, .notMax2 ; we assume that h can be 0, $ff, or $fe
 	ld a, [de]
-	add [hl]
+	sub l	; subtract the difference from the current EV to cap it at 510
 	ld [de], a
-	jr nc, .skip
-	dec de
-	ld a, [de]
-	inc a
-	jr z, .next
-	ld [de], a
-	inc de
-	jr .skip
-
-.next
-	ld a, $ff
-	ld [de], a
-	inc de
-	ld [de], a
-
-.skip
-	inc de
+.notMax2
 	inc de
 	dec c
-	jr nz, .loop1
+	jr nz, .loop1_
+	pop de
+	
+	; jr .applyExp
+; .oldCode
+	; ld hl, wEnemyMonBaseStats - 1
+	; push bc
+	; ld c, $5
+	
+; .loop1
+	; inc hl
+	; ld a, [de]
+	; add [hl]
+	; ld [de], a
+	; jr nc, .applyPokerus
+	
+	; dec de
+	; ld a, [de]
+	; inc a
+	; jr z, .alreadyMaxValue
+	
+	; ld [de], a
+	; inc de
+; .applyPokerus
+	; push hl
+	; push bc
+	; ld a, MON_PKRUS
+	; call GetPartyParamLocation
+	; ld a, [hl]
+	; and a
+	; pop bc
+	; pop hl
+	; jr z, .next
+	
+	; ld a, [de]
+	; add [hl]
+	; ld [de], a
+	; jr nc, .next
+	
+	; dec de
+	; ld a, [de]
+	; inc a
+	; jr z, .alreadyMaxValue
+	
+	; ld [de], a
+	; inc de
+	; jr .next
+
+; .alreadyMaxValue
+	; ld a, $ff
+	; ld [de], a
+	; inc de
+	; ld [de], a
+	
+; .next
+	; inc de
+	; inc de
+	; dec c
+	; jr nz, .loop1
+	
+.applyExp
+; Apply Exp. Points
 	xor a
 	ld [hMultiplicand + 0], a
 	ld [hMultiplicand + 1], a
@@ -7577,8 +7624,74 @@ GiveExperiencePoints: ; 3ee3b
 	dec c
 	jr nz, .count_loop2
 	ret
+	
 ; 3f106
-
+GetEVForStat:
+	push de
+	ld d, $ff
+	ld e, a
+	and a
+	ld a, b
+	jr z, .gotStat
+.findStat
+	srl a
+	jr c, .findStat
+	dec e
+	jr nz, .findStat
+.gotStat
+	inc d
+	srl a
+	jr c, .gotStat
+	ld a, d
+	pop de
+	ret
+	
+AddEVToStat:
+	ld a, $6
+	sub c
+	ld h, $ff
+	ld l, a
+	ld a, b
+	jr z, .gotStat
+.findStat
+	srl a
+	jr c, .findStat
+	dec l
+	jr nz, .findStat
+.gotStat
+	inc h
+	srl a
+	jr c, .gotStat
+	ld a, [de]
+	add h
+	cp 252
+	jr c, .notMax
+	ld a, 252
+.notMax
+	ld [de], a
+	ret
+	
+GetSumOfEVs:
+	push de
+	push bc
+	ld c, $6
+	ld de, 0
+.loop
+	ld a, [hli]
+	add e
+	ld e, a
+	jr nc, .noCarry
+	inc d
+.noCarry
+	dec c
+	jr nz, .loop
+	ld h, d
+	ld l, e
+	pop bc
+	pop de
+	ret
+	
+	
 BoostExp: ; 3f106
 ; Multiply experience by 1.5x
 	push bc
